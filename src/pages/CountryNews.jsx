@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import NewsCard from "../component/NewsCard";
-import Loader from "./Loader";
+import Loader from "../component/Loader";
 
 function CountryNews() {
   

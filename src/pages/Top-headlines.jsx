@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Loader from "../component/Loader";
 import NewsCard from "../component/NewsCard";
+import Loader from "../component/Loader";
 
 function TopHeadlines() {
   const params = useParams();
@@ -11,25 +11,20 @@ function TopHeadlines() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const pageSize = 9;
-
   function handlePrev() {
-    setPage((prevPage) => Math.max(prevPage - 1, 1));
+    setPage(page - 1);
   }
 
   function handleNext() {
-    setPage((prevPage) => prevPage + 1);
+    setPage(page + 1);
   }
+
+  let pageSize = 6;
 
   useEffect(() => {
     setIsLoading(true);
     setError(null);
-    setData([]); // Clear previous data when starting a new fetch
-
-    const categoryParam = params.category
-      ? `category=${params.category}`
-      : "business";
-
+    const categoryParam = params.category ? `&category=${params.category}` : "";
     fetch(
       `http://localhost:5000/api/news/top-headlines?${categoryParam}&page=${page}&pageSize=${pageSize}`
     )

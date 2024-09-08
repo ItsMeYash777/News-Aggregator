@@ -1,19 +1,17 @@
 import { useState } from "react";
-import {Link} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 import countries from "./countries";
-import { useNavigate } from "react-router-dom";
 import SignInSignUpModal from "./SignInSignUpModal";
 import "../App.css";
 
-
 const Navbar = () => {
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState(false)
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isCountryOpen, setIsCountryOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-   const [isSignUp, setIsSignUp] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [isSignUp, setIsSignUp] = useState(false);
+
   let categories = [
     "business",
     "entertainment",
@@ -39,10 +37,15 @@ const Navbar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-const handleCountrySelect = (isoCode) => {
-  navigate(`/top-headlines?country=${isoCode}`);
-  setIsCountryOpen(false); // Close the dropdown after selection
-};
+  const handleCategorySelect = (category) => {
+    navigate(`/top-headlines/${category}`);
+    setIsCategoryOpen(false); // Close the dropdown after selection
+  };
+
+  const handleCountrySelect = (isoCode) => {
+    navigate(`/top-headlines?country=${isoCode}`);
+    setIsCountryOpen(false); // Close the dropdown after selection
+  };
 
   const openModal = (signUp) => {
     setIsSignUp(signUp);
@@ -86,18 +89,15 @@ const handleCountrySelect = (isoCode) => {
         <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 relative">
           <li>
             <Link to="/all-news" className="hover:text-gray-800">
-            All-News
+              All-News
             </Link>
-           
           </li>
           <li className="relative">
             <button
               onClick={toggleCategory}
               className="flex items-center focus:outline-none"
             >
-              <Link to="/top-headlines" className="hover:text-gray-800">
-                Top-headlines
-              </Link>
+              Top-headlines
               <svg
                 className={`w-4 h-4 ml-2 transform transition-transform duration-200 ${
                   isCategoryOpen ? "rotate-180" : ""
@@ -119,15 +119,12 @@ const handleCountrySelect = (isoCode) => {
               <ul className="absolute bg-white shadow-md mt-2 p-2 rounded-lg z-20 w-40">
                 {categories.map((category, index) => (
                   <li key={index} className="px-4 py-2 hover:bg-gray-100">
-                    <Link
-                      to={"/top-headlines/" + category}
-                      className="flex gap-3 capitalize"
-                      type="btn"
-                      onClick={() => {
-                        setIsActive(!isActive);
-                      }}
-                    ></Link>
-                    <a href="#">{category}</a>
+                    <button
+                      onClick={() => handleCategorySelect(category)}
+                      className="w-full text-left"
+                    >
+                      {category}
+                    </button>
                   </li>
                 ))}
               </ul>
