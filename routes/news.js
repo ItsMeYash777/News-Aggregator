@@ -45,6 +45,38 @@ router.get("/top-headlines", async (req, res) => {
   }
 });
 
+//Endpoint for Newyork times data
+
+router.get("/nyt", async (req, res) => {
+   const { page = 1, pageSize = 12 } = req.query;
+
+   try {
+     const response = await axios.get(
+       `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${process.env.NYT_API}`
+     );
+     const articles = response.data.results || [];
+
+     // Pagination logic
+     const startIndex = (page - 1) * pageSize;
+     const paginatedArticles = articles.slice(
+       startIndex,
+       startIndex + Number(pageSize)
+     );
+
+     res.json({
+       success: true,
+       results: paginatedArticles,
+       totalPages: Math.ceil(articles.length / Number(pageSize)),
+     });
+   } catch (error) {
+     console.error("Error fetching news:", error);
+     res.status(500).json({ message: "Error fetching top headlines" });
+   }
+});
+
+
+
+
 
 // Endpoint to fetch country-specific news
 router.get("/country/:iso", async (req, res) => {
@@ -65,6 +97,8 @@ router.get("/country/:iso", async (req, res) => {
 
 
 
-// Endpoint to fetch all news with a query (example: bitcoin)
+
+
+
 
 module.exports = router;
