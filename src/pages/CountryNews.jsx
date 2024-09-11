@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import NewsCard from "../component/NewsCard";
 import Loader from "../component/Loader";
 
@@ -10,9 +10,8 @@ function CountryNews() {
   const [totalResults, setTotalResults] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-   const location = useLocation();
-   const params = new URLSearchParams(location.search);
-   const countryIso = params.get("country");
+  
+   const params = useParams();
 
   function handlePrev() {
     setPage(page - 1);
@@ -29,7 +28,7 @@ function CountryNews() {
    setError(null);
 
    fetch(
-     `http://localhost:5000/api/news/country/${countryIso}?page=${page}&pageSize=${pageSize}`
+     `http://localhost:5000/api/news/country/${params.iso}?page=${page}&pageSize=${pageSize}`
    )
      .then((response) => {
        if (response.ok) {
@@ -48,7 +47,7 @@ function CountryNews() {
      .finally(() => {
        setIsLoading(false);
      });
- }, [countryIso, page]);
+ }, [page, params.iso]);
 
   return (
     <>

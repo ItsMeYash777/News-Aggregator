@@ -2,30 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-
-.light-theme {
-    --background: url("https://tailwindcss.com/_next/static/media/hero@75.b2469a49.jpg");
-    --primary: #F8FAFC;
-    --secondary: #0F172A;
-    --txt: #000;
-    --heading: #2dd9fe;
-    --btn-color: #fff;
-    --btn-background: #5f99be;
-    --search-background: #000;
-    --c: #2dd9fe;
-    --hover_bg_change: backdrop-filter:6px;
-}
-
-.dark-theme {
-    --background: url("https://tailwindcss.com/_next/static/media/hero-dark@90.dba36cdf.jpg");
-    --primary: rgb(30,41,59);
-    --secondary: #D5DDF0;
-    --txt: #fff;
-    --heading: #4666FF;
-    --btn-color: #000;
-    --btn-background: #5f99be;
-    --search-background: #18181b;
-}
-
-.fa-moon {color: #f1c40f;}
-.fa-sun {color: #f39c12;}

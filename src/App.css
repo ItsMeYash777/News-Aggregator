@@ -4,3 +4,13 @@ body{
   font-weight: 500;
   font-style: normal;
 }
+
+
+@media (max-width: 768px) {
+  .dropdown-menu {
+    width: 90%; /* Adjust width as needed */
+    max-height: 300px; /* Set a max-height that fits well on mobile */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+  }
+}
+

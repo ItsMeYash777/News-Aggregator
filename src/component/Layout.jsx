@@ -1,5 +1,6 @@
 // Layout.jsx
-import Navbar from "./Navbar"; // Import your Navbar component
+import Footer from "./Footer";
+import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
@@ -7,8 +8,9 @@ const Layout = () => {
     <div>
       <Navbar />
       <main>
-        <Outlet /> {/* This will render the content for the current route */}
+        <Outlet /> 
       </main>
+      <Footer/>
     </div>
   );
 };

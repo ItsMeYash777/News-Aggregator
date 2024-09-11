@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import countries from "./countries";
-import SignInSignUpModal from "./SignInSignUpModal";
 import "../App.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation(); 
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isCountryOpen, setIsCountryOpen] = useState(false);
+  const [active, setActive] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-  const [isSignUp, setIsSignUp] = useState(false);
 
   let categories = [
     "business",
@@ -25,12 +24,12 @@ const Navbar = () => {
 
   const toggleCategory = () => {
     setIsCategoryOpen(!isCategoryOpen);
-    setIsCountryOpen(false); // Close country dropdown when category opens
+    setIsCountryOpen(false);
   };
 
   const toggleCountry = () => {
     setIsCountryOpen(!isCountryOpen);
-    setIsCategoryOpen(false); // Close category dropdown when country opens
+    setIsCategoryOpen(false);
   };
 
   const toggleMobileMenu = () => {
@@ -39,26 +38,15 @@ const Navbar = () => {
 
   const handleCategorySelect = (category) => {
     navigate(`/top-headlines/${category}`);
-    setIsCategoryOpen(false); // Close the dropdown after selection
+    setIsCategoryOpen(false);
   };
 
-  const handleCountrySelect = (isoCode) => {
-    navigate(`/top-headlines?country=${isoCode}`);
-    setIsCountryOpen(false); // Close the dropdown after selection
-  };
-
-  const openModal = (signUp) => {
-    setIsSignUp(signUp);
-    setIsModalOpen(true); // Open the modal
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false); // Close the modal
-  };
+  
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="bg-white shadow-md p-4 flex flex-col md:flex-row md:items-center md:justify-between relative">
-      <div className="flex items-center justify-between w-full md:w-auto">
+    <nav className="bg-white shadow-md p-4 flex  flex-col md:flex-row md:items-center md:justify-center relative">
+      <div className="flex items-center justify-center w-full md:w-auto mb-4 md:mb-0">
         <img className="w-16" src="28267842_7.svg" alt="Logo" />
         <button
           className="md:hidden text-white bg-black rounded-full p-2 hover:bg-gray-800"
@@ -84,18 +72,46 @@ const Navbar = () => {
       <div
         className={`md:flex md:space-x-4 ${
           isMobileMenuOpen ? "flex" : "hidden"
-        } flex-col md:flex-row mt-4 md:mt-0`}
+        } flex-col md:flex-row mt-4 md:mt-0 md:justify-center`}
       >
-        <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 relative">
+        <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 md:justify-center">
           <li>
-            <Link to="/all-news" className="hover:text-gray-800">
+            <Link
+              to="/"
+              className={`hover:text-gray-800 ${
+                isActive("/") ? "underline text-[#4158D0]" : ""
+              }`}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/nyt"
+              className={`hover:text-gray-800 ${
+                isActive("/nyt") ? "underline text-[#4158D0]" : ""
+              }`}
+            >
+              New York Times
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/all-news"
+              className={`hover:text-gray-800 ${
+                isActive("/all-news") ? "underline text-[#4158D0]" : ""
+              }`}
+            >
               All-News
             </Link>
           </li>
+
           <li className="relative">
             <button
               onClick={toggleCategory}
-              className="flex items-center focus:outline-none"
+              className={`flex items-center focus:outline-none ${
+                isActive("/top-headlines") ? "underline text-[#4158D0]" : ""
+              }`}
             >
               Top-headlines
               <svg
@@ -134,7 +150,9 @@ const Navbar = () => {
           <li className="relative">
             <button
               onClick={toggleCountry}
-              className="flex items-center focus:outline-none"
+              className={`flex items-center focus:outline-none hover:text-gray-700 transition ${
+                isActive("/country") ? "underline text-[#4158D0]" : ""
+              }`}
             >
               Country
               <svg
@@ -154,72 +172,30 @@ const Navbar = () => {
                 />
               </svg>
             </button>
-
             {isCountryOpen && (
-              <ul className="absolute bg-white shadow-md mt-2 p-2 rounded-lg max-h-64 overflow-y-auto z-20 w-64">
+              <ul className="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg overflow-y-auto max-h-64 z-10 p-2">
                 {countries.map((country, index) => (
-                  <li
-                    key={index}
-                    className="flex items-center px-4 py-2 hover:bg-gray-100"
-                  >
-                    <img
-                      src={country.png}
-                      alt={`${country.countryName} flag`}
-                      className="w-6 h-4 mr-2"
-                    />
-                    <button
-                      onClick={() => handleCountrySelect(country.iso)}
-                      className="text-gray-700 focus:outline-none"
+                  <li key={index} onClick={() => setIsCountryOpen(false)}>
+                    <Link
+                      to={`/country/${country?.iso_2_alpha}`}
+                      className="flex gap-3"
+                      onClick={() => setActive(!active)}
                     >
-                      {country.countryName}
-                    </button>
+                      <img
+                        src={country?.png}
+                        srcSet={`https://flagcdn.com/32x24/${country?.iso_2_alpha}.png`}
+                        alt={country?.countryName}
+                        className="w-6 h-4"
+                      />
+                      <span>{country?.countryName}</span>
+                    </Link>
                   </li>
                 ))}
               </ul>
             )}
           </li>
         </ul>
-
-        {/* Mobile buttons */}
-        <div className="md:hidden mt-4 space-y-2">
-          <button
-            onClick={() => openModal(true)}
-            className="w-full text-white bg-black rounded-full px-5 py-2 hover:bg-gray-800"
-          >
-            Sign Up!
-          </button>
-          <button
-            onClick={() => openModal(false)}
-            className="w-full text-white bg-black rounded-full px-5 py-2 hover:bg-gray-800"
-          >
-            Sign In
-          </button>
-        </div>
       </div>
-
-      {/* Desktop buttons */}
-      <div className="hidden md:flex space-x-4 mt-4 md:mt-0">
-        <button
-          onClick={() => openModal(true)}
-          className="text-white bg-black rounded-full px-5 py-2 hover:bg-gray-800"
-        >
-          Sign Up!
-        </button>
-        <button
-          onClick={() => openModal(false)}
-          className="text-white bg-black rounded-full px-5 py-2 hover:bg-gray-800"
-        >
-          Sign In
-        </button>
-      </div>
-
-      {/* Modal */}
-      {isModalOpen && (
-        <SignInSignUpModal
-          isSignUp={isSignUp}
-          closeModal={closeModal} // Close modal handler
-        />
-      )}
     </nav>
   );
 };

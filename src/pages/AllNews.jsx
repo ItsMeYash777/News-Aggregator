@@ -3,7 +3,7 @@ import NewsCard from "../component/NewsCard";
 import Loader from "../component/Loader";
 
 function AllNews() {
-  const [query, setQuery] = useState("world"); // Fixed state initialization
+  const [query, setQuery] = useState("world"); 
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
@@ -38,27 +38,23 @@ function AllNews() {
        throw new Error("Network response was not ok");
      })
      .then((data) => {
-       console.log("Response data:", data); // Debugging response
+       console.log("Response data:", data); 
 
        if (data.articles && Array.isArray(data.articles)) {
-         setData(data.articles); // Set articles data
-         setTotalResults(data.totalResults); // Set total results count
+         setData(data.articles); 
+         setTotalResults(data.totalResults); 
        } else {
          setError("Unexpected response format");
        }
      })
      .catch((error) => {
-       console.error("Fetch error:", error); // Log errors
+       console.error("Fetch error:", error);
        setError("Failed to fetch news. Please try again later.");
      })
      .finally(() => {
        setIsLoading(false);
      });
  }, [query, page, pageSize]);
-
-
-// Ensuring useEffect updates when query, page or pageSize changes
-
   return (
     <>
       {error && <div className="text-red-500 mb-4">{error}</div>}

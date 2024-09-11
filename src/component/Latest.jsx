@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import axios from "axios"; // Make sure axios is installed: npm install axios
+
 import NewsCard from "./NewsCard";
 
 const Latest = () => {
   const [loading, setIsLoading] = useState(true);
-  const [query, setQuery] = useState("world"); // Fixed state initialization
+  const [query, setQuery] = useState("world"); 
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);

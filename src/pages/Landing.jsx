@@ -1,13 +1,9 @@
-import { Link } from "react-router-dom"; // Correct import for Link
-
-import Footer from "../component/Footer";
-import Featured from "../component/Featured";
+import { Link } from "react-router-dom"; 
 import Latest from "../component/Latest";
 
 export default function Landing() {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#4158D0] to-[#C850C0]">
-      
       <main className="flex-1">
         <section className="w-full py-8 md:py-16 lg:py-24">
           <div className="container mx-auto px-4 md:px-6">
@@ -24,7 +20,7 @@ export default function Landing() {
                 </div>
                 <div className="flex flex-col gap-2 sm:flex-row">
                   <Link
-                    to="#"
+                    to="/all-news"
                     className="inline-flex h-10 items-center justify-center rounded-md bg-white px-6 text-sm font-medium text-[#4158D0] shadow transition-colors hover:bg-opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   >
                     Get Started
@@ -55,17 +51,19 @@ export default function Landing() {
               <div className="flex flex-col gap-2 sm:flex-row">
                 <Link
                   to="#"
+                  onClick={() =>
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                  }
                   className="inline-flex h-10 items-center justify-center rounded-md bg-white px-6 text-sm font-medium text-[#4158D0] shadow transition-colors hover:bg-opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 >
-                  Browse Categories
+                  Browse Top Headlines
                 </Link>
               </div>
             </div>
           </div>
         </section>
-        <Featured />
+        
       </main>
-      <Footer />
     </div>
   );
 }
