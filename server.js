@@ -24,10 +24,7 @@ app.get("/", (req, res) => {
 
 
 // Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+
 
 // Set port and start server
 const PORT = process.env.PORT || 5000; // Default to 5000 if PORT is not set
