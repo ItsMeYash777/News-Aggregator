@@ -1,5 +1,5 @@
 import AllNews from "./pages/AllNews";
-import Landing from "./pages/landing";
+import Landing from "./pages/Landing"
 import TopHeadlines from "./pages/Top-headlines";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./component/Layout";
