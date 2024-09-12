@@ -8,6 +8,7 @@ const Latest = () => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
+   const API_URL = import.meta.env.VITE_BACKEND_URL;
 
   const pageSize = 6
 
@@ -21,7 +22,7 @@ const Latest = () => {
     setIsLoading(true);
     setError(null);
 
-    fetch(`http://localhost:5000/api/news/all-news?${params}`)
+    fetch(`${API_URL}/api/news/all-news?${params}`)
       .then((response) => {
         if (response.ok) {
           return response.json();

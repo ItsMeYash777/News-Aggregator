@@ -10,6 +10,7 @@ function CountryNews() {
   const [totalResults, setTotalResults] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+   const API_URL = import.meta.env.VITE_BACKEND_URL;
   
    const params = useParams();
 
@@ -28,7 +29,7 @@ function CountryNews() {
    setError(null);
 
    fetch(
-     `http://localhost:5000/api/news/country/${params.iso}?page=${page}&pageSize=${pageSize}`
+     `${API_URL}/api/news/country/${params.iso}?page=${page}&pageSize=${pageSize}`
    )
      .then((response) => {
        if (response.ok) {

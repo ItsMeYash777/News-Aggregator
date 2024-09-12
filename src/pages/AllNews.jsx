@@ -9,6 +9,7 @@ function AllNews() {
   const [totalResults, setTotalResults] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
 
   const pageSize = 12;
 
@@ -30,7 +31,7 @@ function AllNews() {
    setIsLoading(true);
    setError(null);
 
-   fetch(`${import.meta.env.VITE_BACKEND_URL}/api/news/all-news?${params}`)
+   fetch(`${API_URL}/api/news/all-news?${params}`)
      .then((response) => {
        if (response.ok) {
          return response.json();

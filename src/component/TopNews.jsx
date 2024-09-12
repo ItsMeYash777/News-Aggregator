@@ -3,6 +3,7 @@ import axios from "axios";
 
 
 const NewsCard = ({ title, description, url, imageUrl }) => {
+   
   return (
     <div className="flex flex-col bg-white border rounded-lg shadow-lg overflow-hidden max-w-xs h-full my-6 mx-1">
       {imageUrl ? (
@@ -31,6 +32,7 @@ const NewsCard = ({ title, description, url, imageUrl }) => {
 };
 
 const TopNews = () => {
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
   const [news, setNews] = useState([]); 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -42,7 +44,7 @@ const TopNews = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/news/nyt?page=${currentPage}`
+          `${API_URL}/api/news/nyt?page=${currentPage}`
         );
         setNews(response.data.results || []); 
         setTotalPages(response.data.totalPages || 1); 

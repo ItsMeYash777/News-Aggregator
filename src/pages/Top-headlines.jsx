@@ -10,6 +10,7 @@ function TopHeadlines() {
   const [totalResults, setTotalResults] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
 
   function handlePrev() {
     setPage(page - 1);
@@ -26,7 +27,7 @@ function TopHeadlines() {
     setError(null);
     const categoryParam = params.category ? `&category=${params.category}` : "";
     fetch(
-      `http://localhost:5000/api/news/top-headlines?${categoryParam}&page=${page}&pageSize=${pageSize}`
+      `${API_URL}/api/news/top-headlines?${categoryParam}&page=${page}&pageSize=${pageSize}`
     )
       .then((response) => {
         if (response.ok) {
