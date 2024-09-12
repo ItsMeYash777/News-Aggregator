@@ -30,7 +30,7 @@ function AllNews() {
    setIsLoading(true);
    setError(null);
 
-   fetch(`http://localhost:5000/api/news/all-news?${params}`)
+   fetch(`${import.meta.env.VITE_BACKEND_URL}/api/news/all-news?${params}`)
      .then((response) => {
        if (response.ok) {
          return response.json();
@@ -38,11 +38,11 @@ function AllNews() {
        throw new Error("Network response was not ok");
      })
      .then((data) => {
-       console.log("Response data:", data); 
+       console.log("Response data:", data);
 
        if (data.articles && Array.isArray(data.articles)) {
-         setData(data.articles); 
-         setTotalResults(data.totalResults); 
+         setData(data.articles);
+         setTotalResults(data.totalResults);
        } else {
          setError("Unexpected response format");
        }
