@@ -1,16 +1,19 @@
-body{
+/* Legacy styles - most styling now handled by Tailwind in index.css */
+
+/* Keep only necessary styles that aren't covered by Tailwind */
+body {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
 }
 
-
+/* Any remaining custom styles that need to be preserved */
 @media (max-width: 768px) {
   .dropdown-menu {
-    width: 90%; /* Adjust width as needed */
-    max-height: 300px; /* Set a max-height that fits well on mobile */
-    overflow-y: auto; /* Allow scrolling if content overflows */
+    width: 90%;
+    max-height: 300px;
+    overflow-y: auto;
   }
 }
 

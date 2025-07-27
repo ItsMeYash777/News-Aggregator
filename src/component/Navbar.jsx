@@ -53,7 +53,7 @@ const Navbar = ({ theme, toggleTheme }) => {
           </span>
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4 ml-5">
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
