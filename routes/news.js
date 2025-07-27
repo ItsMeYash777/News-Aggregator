@@ -192,7 +192,7 @@ router.get("/indian-news/categories", async (req, res) => {
     // Get categories that exist in database and are India-specific
     const query = `
       SELECT DISTINCT category, COUNT(*) as article_count 
-      FROM indian_news 
+      FROM news_articles 
       WHERE category = ANY($1)
       GROUP BY category 
       ORDER BY category
@@ -219,7 +219,7 @@ router.get("/indian-news", async (req, res) => {
   const pageSize = parseInt(req.query.pageSize) || 10;
   const category = req.query.category;
   const searchTerm = req.query.q;
-  const sortBy = req.query.sortBy || 'published_at'; // published_at, title, category
+  const sortBy = req.query.sortBy || 'created_at'; // created_at, published_time, title, category
   const sortOrder = req.query.sortOrder || 'DESC'; // ASC, DESC
   const offset = (page - 1) * pageSize;
   
@@ -247,14 +247,14 @@ router.get("/indian-news", async (req, res) => {
     const whereClause = whereConditions.join(' AND ');
 
     // Get total count
-    const countQuery = `SELECT COUNT(*) FROM indian_news WHERE ${whereClause}`;
+    const countQuery = `SELECT COUNT(*) FROM news_articles WHERE ${whereClause}`;
     const countResult = await pool.query(countQuery, queryParams);
     const totalResults = parseInt(countResult.rows[0].count);
 
     // Get paginated results
     queryParams.push(pageSize, offset);
     const dataQuery = `
-      SELECT * FROM indian_news 
+      SELECT * FROM news_articles 
       WHERE ${whereClause}
       ORDER BY ${sortBy} ${sortOrder}
       LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
@@ -287,7 +287,7 @@ router.get("/indian-news/category/:categoryName", async (req, res) => {
   const { categoryName } = req.params;
   const page = parseInt(req.query.page) || 1;
   const pageSize = parseInt(req.query.pageSize) || 10;
-  const sortBy = req.query.sortBy || 'published_at';
+  const sortBy = req.query.sortBy || 'created_at';
   const sortOrder = req.query.sortOrder || 'DESC';
   const offset = (page - 1) * pageSize;
 
@@ -304,13 +304,13 @@ router.get("/indian-news/category/:categoryName", async (req, res) => {
 
   try {
     // Get total count for the category
-    const countQuery = 'SELECT COUNT(*) FROM indian_news WHERE category = $1';
+    const countQuery = 'SELECT COUNT(*) FROM news_articles WHERE category = $1';
     const countResult = await pool.query(countQuery, [categoryName]);
     const totalResults = parseInt(countResult.rows[0].count);
 
     // Get paginated results
     const query = `
-      SELECT * FROM indian_news 
+      SELECT * FROM news_articles 
       WHERE category = $1 
       ORDER BY ${sortBy} ${sortOrder}
       LIMIT $2 OFFSET $3
@@ -342,7 +342,7 @@ router.get("/indian-news/search", async (req, res) => {
   const pageSize = parseInt(req.query.pageSize) || 10;
   const searchTerm = req.query.q;
   const category = req.query.category;
-  const sortBy = req.query.sortBy || 'published_at';
+  const sortBy = req.query.sortBy || 'created_at';
   const sortOrder = req.query.sortOrder || 'DESC';
   const offset = (page - 1) * pageSize;
 
@@ -370,14 +370,14 @@ router.get("/indian-news/search", async (req, res) => {
     const whereClause = whereConditions.join(' AND ');
 
     // Get total count
-    const countQuery = `SELECT COUNT(*) FROM indian_news WHERE ${whereClause}`;
+    const countQuery = `SELECT COUNT(*) FROM news_articles WHERE ${whereClause}`;
     const countResult = await pool.query(countQuery, queryParams);
     const totalResults = parseInt(countResult.rows[0].count);
 
     // Get paginated results
     queryParams.push(pageSize, offset);
     const dataQuery = `
-      SELECT * FROM indian_news 
+      SELECT * FROM news_articles 
       WHERE ${whereClause}
       ORDER BY ${sortBy} ${sortOrder}
       LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
