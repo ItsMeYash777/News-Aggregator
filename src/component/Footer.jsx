@@ -60,6 +60,15 @@ const Footer = ({ theme }) => {
               </li>
               <li>
                 <Link 
+                  to="/indian-news"
+                  className="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-700 dark:hover:text-primary-400 transition-colors duration-200 flex items-center"
+                >
+                  <span className="mr-1">🇮🇳</span>
+                  भारत समाचार
+                </Link>
+              </li>
+              <li>
+                <Link 
                   to="/all-news"
                   className="text-text-secondary-light dark:text-text-secondary-dark hover:text-primary-700 dark:hover:text-primary-400 transition-colors duration-200"
                 >

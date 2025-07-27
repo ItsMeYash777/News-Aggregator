@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./component/Layout";
 import CountryNews from "./pages/CountryNews";
 import TopNews from "./component/TopNews";
+import IndianNews from "./pages/IndianNews";
 import { useState, useEffect } from "react";
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
           element={<Layout theme={theme} toggleTheme={toggleTheme} />} // Pass theme and toggle function
         >
           <Route index element={<Landing />} /> {/* Default route */}
+          <Route path="/indian-news" element={<IndianNews />} />
           <Route path="/india-news" element={<AllNews />} />
           <Route path="/all-news" element={<AllNews />} />
           <Route path="/top-headlines/:category" element={<TopHeadlines />} />

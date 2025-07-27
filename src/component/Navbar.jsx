@@ -53,7 +53,7 @@ const Navbar = ({ theme, toggleTheme }) => {
           </span>
         </div>
         
-        <div className="flex items-center gap-4 ml-5">
+        <div className="flex items-center gap-2">
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
@@ -112,18 +112,20 @@ const Navbar = ({ theme, toggleTheme }) => {
               Home
             </Link>
           </li>
+          
           <li>
             <Link
-              to="/nyt"
-              className={`font-medium hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 ${
-                isActive("/nyt") 
+              to="/indian-news"
+              className={`font-medium hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 flex items-center ${
+                isActive("/indian-news") 
                   ? "text-primary-800 dark:text-primary-300 border-b-2 border-primary-800 dark:border-primary-300" 
                   : "text-text-primary-light dark:text-text-primary-dark"
               }`}
             >
-              New York Times
+              भारत समाचार
             </Link>
           </li>
+
           <li>
             <Link
               to="/all-news"
@@ -134,6 +136,19 @@ const Navbar = ({ theme, toggleTheme }) => {
               }`}
             >
               All News
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="/nyt"
+              className={`font-medium hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 ${
+                isActive("/nyt") 
+                  ? "text-primary-800 dark:text-primary-300 border-b-2 border-primary-800 dark:border-primary-300" 
+                  : "text-text-primary-light dark:text-text-primary-dark"
+              }`}
+            >
+              New York Times
             </Link>
           </li>
 
