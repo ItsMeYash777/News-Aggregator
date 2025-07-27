@@ -118,7 +118,7 @@ function IndianNews() {
   const clearFilters = () => {
     setSelectedCategory("");
     setSearchTerm("");
-    setSortBy("published_at");
+    setSortBy("published_time");
     setSortOrder("DESC");
     setPage(1);
   };
@@ -219,14 +219,14 @@ function IndianNews() {
               <div className="flex items-center gap-2">
                 <span className="text-sm text-text-secondary-light dark:text-text-secondary-dark">Sort:</span>
                 <button
-                  onClick={() => handleSortChange("published_at")}
+                  onClick={() => handleSortChange("published_time")}
                   className={`px-3 py-1 rounded-lg text-sm transition-colors duration-200 ${
-                    sortBy === "published_at" 
+                    sortBy === "published_time" 
                       ? "bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300" 
                       : "bg-surface-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark hover:bg-primary-100 dark:hover:bg-primary-800"
                   }`}
                 >
-                  Date {sortBy === "published_at" && (sortOrder === "DESC" ? "↓" : "↑")}
+                  Date {sortBy === "published_time" && (sortOrder === "DESC" ? "↓" : "↑")}
                 </button>
                 <button
                   onClick={() => handleSortChange("title")}
@@ -241,7 +241,7 @@ function IndianNews() {
               </div>
 
               {/* Clear Filters */}
-              {(selectedCategory || searchTerm || sortBy !== "published_at" || sortOrder !== "DESC") && (
+              {(selectedCategory || searchTerm || sortBy !== "published_time" || sortOrder !== "DESC") && (
                 <button
                   onClick={clearFilters}
                   className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-lg text-sm hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors duration-200"
@@ -335,7 +335,7 @@ function IndianNews() {
                   imageUrl={article.image_url}
                   author={article.author}
                   source={article.source}
-                  publishedAt={article.published_at}
+                  publishedAt={article.published_time}
                 />
               ))}
             </div>
