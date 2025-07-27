@@ -330,9 +330,9 @@ function IndianNews() {
                 <NewsCard
                   key={index}
                   title={article.title}
-                  description={article.description}
-                  url={article.url}
-                  imageUrl={article.image_url}
+                  description={null}
+                  url={article.link}
+                  imageUrl={article.image}
                   author={article.author}
                   source={article.source}
                   publishedAt={article.published_time}
